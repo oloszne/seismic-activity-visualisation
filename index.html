@@ -1,10 +1,10 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Seismic Acticity Simulation</title>
+  <title>Seismic Activity Simulation</title>
   <meta charset="UTF-8" />
   <style>
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -23,92 +23,149 @@
       top: 15px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       color: #fff;
       padding: 8px 16px;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 16px;
       letter-spacing: 0.5px;
       z-index: 10;
       pointer-events: none;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     #controlsContainer {
       position: absolute;
-      bottom: 15px;
+      bottom: 25px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
       z-index: 10;
       display: flex;
       align-items: center;
-      padding: 8px 16px;
+      padding: 10px 20px;
       gap: 16px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     #speedButton {
       background: #333;
       color: #fff;
-      border: none;
+      border: 1px solid #555;
       padding: 8px 12px;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
       font-family: "Segoe UI", Roboto, sans-serif;
       font-size: 14px;
       width: 50px;
       text-align: center;
+      transition: background 0.2s;
     }
 
     #speedButton:hover {
-      background: #444;
+      background: #555;
     }
 
     #timeSlider {
       -webkit-appearance: none;
       width: 40vw;
-      min-width: 300px;
-      height: 8px;
+      min-width: 200px;
+      height: 6px;
       background: #444;
-      border-radius: 5px;
+      border-radius: 3px;
       outline: none;
-      opacity: 0.7;
       transition: opacity 0.2s;
-    }
-
-    #timeSlider:hover {
-      opacity: 1;
     }
 
     #timeSlider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 18px;
-      height: 18px;
-      background: #ffffff;
+      width: 16px;
+      height: 16px;
+      background: #00ffbf;
       border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    #timeSlider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
       cursor: pointer;
     }
 
-    #timeSlider::-moz-range-thumb {
-      width: 18px;
-      height: 18px;
-      background: #ffffff;
-      border-radius: 50%;
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 34px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
       cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #333;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #9c27b0;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(14px);
     }
   </style>
 </head>
 
 <body>
-  <div id="app"></div>
-  <div id="timeDisplay">Loading simulation...</div>
+<div id="app"></div>
+<div id="timeDisplay">Loading simulation...</div>
 
-  <div id="controlsContainer">
-    <button id="speedButton">1x</button>
-    <input type="range" id="timeSlider" min="0" max="1" value="0" step="1">
-  </div>
+<div id="controlsContainer">
+  <button id="speedButton">1x</button>
+  <input type="range" id="timeSlider" min="0" max="1" value="0" step="1">
+  <label class="toggle-container">
+    <div class="switch">
+      <input type="checkbox" id="heatmapToggle" checked>
+      <span class="slider"></span>
+    </div>
+    <span>Heatmap</span>
+  </label>
+</div>
 
-  <script src="src/index.js" type="module"></script>
+<script src="src/index.js" type="module"></script>
 </body>
 </html>
